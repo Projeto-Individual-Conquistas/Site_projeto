@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto individual</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="./assets/logo.png" alt="logo wasabi">
+        </div>
+        <nav class="navbar">
+            <span><a href="#seção_home">Home</a></span>
+            <span><a href="">Contato</a></span>
+            <span><a href="">Dúvidas</a></span>
+        </nav>
+        <div class="login_cadastro">
+            <a href="login.html">Login</a>
+            <a href="cadastro.html">Registrar</a>
+        </div>
+    </header>
+
+    <section id="seção_home" class="home">
+        <p>MAIS QUE UM <span>JOGO</span>,</p>
+        <div class="container">
+           <a href="login.html">
+               <button>COMEÇAR</button>
+           </a>
+        </div>
+        <p>UM <span>CATÁLOGO</span> DE <span>VITÓRIAS</span>.</p>
+    </section>
+
+    <div class="carrocel">
+        <button onclick="back()" class="seta">
+            <img src="./assets/seta_esquerda.png" alt="" style="width: 50px; height: 50px;">
+        </button>
+        <div class="imagem_meio" style="background-image: url(https://lncimg.lance.com.br/uploads/2024/11/jogo-corinthians-hoje-7-scaled-aspect-ratio-512-320.jpg);"></div>
+        <button onclick="go()" class="seta">
+            <img src="./assets/seta_direita.png" alt="" style="width: 50px; height: 50px;">
+        </button>
+    </div>
+</body>
+</html>
