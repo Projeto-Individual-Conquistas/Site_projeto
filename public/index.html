@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto individual</title>
     <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/script_index.js"></script>
 </head>
+
 <body>
     <header class="header">
         <div class="logo">
@@ -25,9 +28,9 @@
     <section id="seção_home" class="home">
         <p>MAIS QUE UM <span>JOGO</span>,</p>
         <div class="container">
-           <a href="login.html">
-               <button>COMEÇAR</button>
-           </a>
+            <a href="login.html">
+                <button>COMEÇAR</button>
+            </a>
         </div>
         <p>UM <span>CATÁLOGO</span> DE <span>VITÓRIAS</span>.</p>
     </section>
@@ -36,10 +39,93 @@
         <button onclick="back()" class="seta">
             <img src="./assets/seta_esquerda.png" alt="" style="width: 50px; height: 50px;">
         </button>
-        <div class="imagem_meio" style="background-image: url(https://lncimg.lance.com.br/uploads/2024/11/jogo-corinthians-hoje-7-scaled-aspect-ratio-512-320.jpg);"></div>
+        <div class="imagem_meio"
+            style="background-image: url(https://lncimg.lance.com.br/uploads/2024/11/jogo-corinthians-hoje-7-scaled-aspect-ratio-512-320.jpg);">
+        </div>
         <button onclick="go()" class="seta">
             <img src="./assets/seta_direita.png" alt="" style="width: 50px; height: 50px;">
         </button>
     </div>
+
+
+    <!-- SEÇÃO DE FAQ E CONTATO-->
+
+    <section id="section_duvida" class="section_duvida">
+        <div class="div_container">
+            <h1>Perguntas Frequentes</h1>
+            <p>
+                <span>
+                    Como funciona o sistema de troféus playstation?<br>
+                    <span id="span_resposta1"> 
+                        Os Troféus no sistema playstation são recompensas digitais concedidas ao jogador por atingir marcos de progresso e
+                        completar diversos desafios dentro dos jogos. Eles são classificados em quatro níveis de valor,
+                        determinados pelo grau de dificuldade e dedicação que representam:<br>                     
+                       
+                                Bronze: O nível inicial, dado por ações básicas ou pela conclusão de fases iniciais do conteúdo
+                                do jogo.<br>
+                          
+                                Prata: O nível intermediário, que recompensa o jogador por metas substanciais, como avançar de
+                                forma significativa no jogo ou atingir um ponto médio na exploração de conteúdo opcional.<br>
+                         
+                                Ouro: Um nível elevado, reservado para feitos excepcionais que demonstrem grande domínio do jogo
+                                ou exijam um investimento extenso de tempo para serem alcançados. <br>
+                             
+                                Platina: O troféu de maior prestígio. Ele é um reconhecimento por ter alcançado a totalidade dos
+                                objetivos de troféus previstos para o título.</span>
+                                </span>
+                    <button onclick="exibirResposta1()" id="botao_resposta1">+</button>
+            </p>
+
+            <p>
+                <span>
+                    O que é a Hikari Wasabi?<br>
+                    <span id="span_resposta2">A Hikari Wasabi é uma empresa que fornece um sistema que tem como objetivo
+                        monitorar continuamente os níveis de umidade e temperatura nas plantações de wasabi, detectando
+                        automaticamente quando a critérios estiverem nos limites ideais para o cultivo.</span>
+                </span>
+                <button onclick="exibirResposta2()" id="botao_resposta2">+</button>
+            </p>
+
+            <p>
+                <span>
+                    Preciso de internet para armazenar o sistema?<br>
+                    <span id="span_resposta3">Sim, pois os dados coletados pelo sensor são armazenados no banco de dados
+                        e exibidos em uma página web, sendo ambos hospedados em um servidor que depende de internet para
+                        ser acessado.</span>
+                </span>
+                <button onclick="exibirResposta3()" id="botao_resposta3">+</button>
+            </p>
+
+            <p>
+                <span>
+                    O sensor resiste a água?<br>
+                    <span id="span_resposta4">Não, pois o sistema monitora a temperatura e umidade do ar, mas o seu
+                        sensor de umidade é exposto, e qualquer contato com água líquida (chuva, respingos) pode:
+                        danificar, corroer os contatos e corromper as leituras.</span>
+                </span>
+                <button onclick="exibirResposta4()" id="botao_resposta4">+</button>
+            </p>
+
+            <p>
+                <span>
+                    Qual a vantagem de usar a Hikari Wasabi na minha safra?<br>
+                    <span id="span_resposta5">O sistema da Hikari Wasabi oferece monitoramento contínuo e emissão de
+                        alertas precisos para intervenção imediata. Esta solução não apenas previne perdas, como também
+                        assegura a manutenção dos padrões de qualidade que permitem a comercialização do wasabi em seu
+                        patamar máximo de valor.</span>
+                </span>
+                <button onclick="exibirResposta5()" id="botao_resposta5">+</button>
+            </p>
+
+            <p>
+                <span>
+                    Como recebo alertas do sensor?<br>
+                    <span id="span_resposta6">O sistema Hikari Wasabi emite alertas em tempo real e relatórios
+                        históricos, serão disponibilizadas ao usuário por meio de um website intuitivo com dashboards e
+                        gráficos interativos.</span>
+                </span>
+                <button onclick="exibirResposta6()" id="botao_resposta6">+</button>
+            </p>
 </body>
+
 </html>
