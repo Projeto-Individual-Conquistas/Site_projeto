@@ -152,6 +152,29 @@ body{
     background-size: cover;
 }
 
+.instrucoes{
+    flex-direction: row;
+    justify-self: center;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: 90px 0px 90px;
+}
+.instrucoes .container{
+    width: 15%;
+    flex-direction: column;
+    align-self: center;
+    text-align: center;
+    height: 20%;
+}
+.instrucoes .container p{
+    color: #ffffff;
+    font-size: 18px;
+}
+.instrucoes .container img{
+    width: 100px;
+    height: 100px;
+}
 .contato{
     background-color: white;
     padding-top: 20px;
@@ -247,4 +270,23 @@ body{
     font-size: 19px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.perguntas{
+  flex-direction: column;
+  width: 60%;
+  justify-self: center;
+  margin: 0px;
+}
+.perguntas h3{
+    font-size: 30px;
+    color: #010181;
+    justify-self: center;
+    margin-top: 60px;
+    margin-bottom: 0px;
+}
+.perguntas h6{
+    font-size: 20px;
+    font-weight: 100;
+    text-align: center;
 }
