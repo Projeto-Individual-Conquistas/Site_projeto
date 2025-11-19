@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Play's Path | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
@@ -36,7 +36,7 @@
     </header>
   <!--header fim-->
 
-  <div class="login" style="background-image: none;">
+  <div class="login" style="background-image: url(./assets/img_cadastro.png);">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
         <span id="mensagem_erro"></span>
@@ -51,16 +51,12 @@
                          Assim que inserir vá para o script abaixo.
                      -->
           <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
+            <span>Username:</span>
+            <input id="nome_input" type="text" placeholder="Seu nome de usuario" />
           </div>
           <div class="campo">
             <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+            <input id="email_input" type="text" placeholder="@gmai.com" />
           </div>
           <div class="campo">
             <span>Senha:</span>
@@ -101,16 +97,16 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
+    //var codigoVar = codigo_input.value;
+   // var idEmpresaVincular
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
+      confirmacaoSenhaVar == "" 
+     // codigoVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -123,7 +119,7 @@
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+    /*for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
       if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
         idEmpresaVincular = listaEmpresasCadastradas[i].id
         console.log("Código de ativação válido.");
@@ -133,10 +129,10 @@
         mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
         finalizarAguardar();
       }
-    }
+  }*/
 
     // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
+    fetch("http://127.0.0.1:3333/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +143,7 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
+       // idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
@@ -177,7 +173,7 @@
     return false;
   }
 
-  // Listando empresas cadastradas 
+  /*// Listando empresas cadastradas 
   function listar() {
     fetch("/empresas/listar", {
       method: "GET",
@@ -196,7 +192,7 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
-
+*/
   function sumirMensagem() {
     cardErro.style.display = "none";
   }

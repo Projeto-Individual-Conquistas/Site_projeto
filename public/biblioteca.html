@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Play's Path | biblioteca</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./assets/logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body>
+
+    <!--header inicio-->
+     <header class="header">
+        <div class="logo">
+          <a href="index.html">
+            <img src="./assets/logo.png" alt="logo wasabi" >
+          </a>
+        </div>
+        <nav class="navbar">
+            <span><a href="index.html">Home</a></span>
+            <span><a href="index.html #seção_contato">Contato</a></span>
+            <span><a href="">Dúvidas</a></span>
+        </nav>
+        <div class="login_cadastro">
+
+        </div>
+    </header>
+
+
+    <!-- simulador inicio -->
+    <div class="biblioteca">
+        <h2><span id="usuario"></span></h2>
+        <h2>Biblioteca</h2>
+        <div class="container" id="add_jogos">
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}`;
+</script>

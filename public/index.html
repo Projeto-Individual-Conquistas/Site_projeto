@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto individual</title>
+    <title>Play's Path</title>
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./assets/logo.png" />
     <script src="./js/script_index.js"></script>
 </head>
 
 <body>
     <header class="header">
         <div class="logo">
-            <img src="./assets/logo.png" alt="logo wasabi">
+            <img src="./assets/logo.png" alt="">
         </div>
         <nav class="navbar">
             <span><a href="#seção_home">Home</a></span>
@@ -35,7 +36,12 @@
         <p>UM <span>CATÁLOGO</span> DE <span>VITÓRIAS</span>.</p>
     </section>
 
-           
+    <div class="video">
+        <video id="video_fundo" autoplay loop muted>
+            <source src="./assets/video_fundo-cadastro.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <div class="carrocel">
         <button onclick="back()" class="seta">
             <img src="./assets/seta_direita.png" alt="" style="width: 50px; height: 50px; transform: rotateY(180deg);">

@@ -151,7 +151,17 @@ body{
     justify-content: center;
     background-size: cover;
 }
-
+.video{
+    display: flex;
+    margin-top: 5%;
+    justify-content: center;
+    width: 100%;
+}
+.video video{
+    width: 97.5%;
+    justify-self: center;
+    border-radius: 20px;
+}
 .instrucoes{
     flex-direction: row;
     justify-self: center;
