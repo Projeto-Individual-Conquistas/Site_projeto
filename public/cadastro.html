@@ -86,7 +86,7 @@
 <script>
 
   // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
+  let listaUsuario = [];
 
   function cadastrar() {
     // aguardar();
@@ -97,8 +97,7 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    //var codigoVar = codigo_input.value;
-   // var idEmpresaVincular
+
 
     // Verificando se há algum campo em branco
     if (
@@ -106,7 +105,7 @@
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" 
-     // codigoVar == ""
+
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -119,18 +118,33 @@
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
-    /*for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
-  }*/
+      // Listando empresas cadastradas 
+  function listar() {
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((usuario) => {
+          usuario.forEach((usuario) => {
+            listaUsuario.push(usuario);
 
+            console.log("lista de usuario cadastrados")
+            console.log(listaUsuario[0].email)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+                for (var i = 0; i < listaUsuario.length; i++){
+                console.log(`${emailVar}`)
+                if (listaUsuario[i].email == emailVar) { 
+                  alert("Esse email já está cadastrado!");
+                  return;
+                }
+              }
     // Enviando o valor da nova input
     fetch("http://127.0.0.1:3333/usuarios/cadastrar", {
       method: "POST",
@@ -143,7 +157,6 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-       // idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
@@ -173,27 +186,10 @@
     return false;
   }
 
-  /*// Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
 
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-*/
+
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
+  listar();
 </script>
