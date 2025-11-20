@@ -119,32 +119,8 @@
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
       // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((usuario) => {
-          usuario.forEach((usuario) => {
-            listaUsuario.push(usuario);
 
-            console.log("lista de usuario cadastrados")
-            console.log(listaUsuario[0].email)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
 
-                for (var i = 0; i < listaUsuario.length; i++){
-                console.log(`${emailVar}`)
-                if (listaUsuario[i].email == emailVar) { 
-                  alert("Esse email já está cadastrado!");
-                  return;
-                }
-              }
     // Enviando o valor da nova input
     fetch("http://127.0.0.1:3333/usuarios/cadastrar", {
       method: "POST",
