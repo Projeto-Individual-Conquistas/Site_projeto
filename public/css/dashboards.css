@@ -336,7 +336,10 @@ canvas {
   text-decoration: none;
   color: white;
 }
-
+.header-left img{
+  width: 140px;
+  height: 20%;
+}
 .header-left {
   position: fixed;
   top: 0;
@@ -348,20 +351,20 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-right: 3px solid #32b9cd;
+  border-right: 3px solid #212124;
   background-color: #212124;
 }
 
-.dash-right {
+.biblioteca {
   display: flex;
   width: 70%;
-  height: fit-content;
-  background-color: #161618;
+  background-color: #000000;
   position: relative;
   top: 0;
   left: 25%;
   height: 100vh;
   overflow: auto;
+  flex-direction: column;
 }
 
 .header-left h1 {

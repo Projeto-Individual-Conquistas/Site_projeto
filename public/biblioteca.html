@@ -9,7 +9,7 @@
     <title>Play's Path | biblioteca</title>
 
     <script src="./js/sessao.js"></script>
-
+    <link rel="stylesheet" href="./css/dashboards.css">
     <link rel="stylesheet" href="./css/estilo.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="icon" href="./assets/logo.png">
@@ -19,22 +19,32 @@
 <body>
 
     <!--header inicio-->
-     <header class="header">
-        <div class="logo">
-          <a href="index.html">
-            <img src="./assets/logo.png" alt="logo wasabi" >
-          </a>
-        </div>
-        <nav class="navbar">
-            <span><a href="index.html">Home</a></span>
-            <span><a href="index.html #seção_contato">Contato</a></span>
-            <span><a href="">Dúvidas</a></span>
-        </nav>
-        <div class="login_cadastro">
 
-        </div>
     </header>
 
+        <div class="header-left dash-header">
+            <img src="./assets/logo.png" alt="">
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario"></span>!</h3>
+            </div>
+
+            <div class="btn-nav">
+                <h3>BIBLIOTECA</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>RECOMENDAÇÕES</h3>
+                </a>
+            </div>
+
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
 
     <!-- simulador inicio -->
     <div class="biblioteca">
@@ -42,7 +52,9 @@
         <h2>Biblioteca</h2>
         <div id="jogos"></div>
         <div class="container" id="add_jogos">
-            <img src="./assets/add_img.png" alt="adicionar jogo">
+            <a href="./index.html">
+                <img src="./assets/add_img.png" alt="adicionar jogo">
+            </a>
         </div>
     </div>
 
@@ -52,5 +64,5 @@
 </html>
 
 <script>
-    usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}`;
+    b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 </script>

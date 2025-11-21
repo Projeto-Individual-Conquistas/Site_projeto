@@ -81,7 +81,7 @@
 
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
+/*
     let proximaAtualizacao;
 
     window.onload = exibirAquariosDoUsuario();
@@ -96,7 +96,7 @@
             document.getElementById("graficos").innerHTML += `
                 <div id="grafico${item.id}" class="display-none">
                     <h3 class="tituloGraficos">
-                        <span id="tituloAquario${item.id}">${item.descricao}</span>
+                        <span id="tituloAquario${itemPie.id}">${item.descricao}</span>
                     </h3>
                     <div class="graph">
                         <canvas id="myChartCanvas${item.id}"></canvas>
@@ -196,7 +196,7 @@
     function plotarGrafico(resposta, idAquario) {
 
         console.log('iniciando plotagem do gráfico...');
-
+*/
         // Criando estrutura para plotar gráfico - labels
         let labels = [];
 
@@ -205,16 +205,9 @@
             labels: labels,
             datasets: [{
                 label: 'Umidade',
-                data: [],
+                data: [20 , 30, 50],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            },
-            {
-                label: 'Temperatura',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
                 tension: 0.1
             }]
         };
@@ -223,14 +216,14 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
+ /*       // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
             dados.datasets[0].data.push(registro.umidade);
             dados.datasets[1].data.push(registro.temperatura);
         }
-
+*/
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
@@ -241,7 +234,7 @@
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'line',
+            type: 'Pie',
             data: dados,
         };
 
@@ -250,10 +243,10 @@
             document.getElementById(`myChartCanvas${idAquario}`),
             config
         );
-
+/*
         setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
     }
-
+*/
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
     // buscando a última medida inserida em tabela contendo as capturas, 
