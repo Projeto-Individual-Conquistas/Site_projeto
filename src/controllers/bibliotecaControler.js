@@ -1,22 +1,22 @@
 var usuarioModel = require("../models/usuarioModel");
-var safraModel = require("../models/safraModel");
+var bibliotecaModel = require("../models/bibliotecaModel");
 
 
-function  mostrarSafra(req, res) {
+function  mostrarBiblioteca(req, res) {
     var email = req.params.email;
     var id_usuario  = req.params.id_usuario;
 
     if (id_usuario != undefined && email != undefined) {
 
-        bibliotecaModel.mostrarSafra(email, id_usuario)
+        bibliotecaModel.mostrarBiblioteca(email, id_usuario)
             .then(
-                function (resultadoMostrarSafra) {
-                    console.log(`\nResultados encontrados: ${resultadoMostrarSafra}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoMostrarSafra)}`); // transforma JSON em String
+                function (resultadoMostrarBiblioteca) {
+                    console.log(`\nResultados encontrados: ${resultadoMostrarBiblioteca}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoMostrarBiblioteca)}`); // transforma JSON em String
 
                     
 
-                        res.json(resultadoMostrarSafra)
+                        res.json(resultadoMostrarBiblioteca)
                         
 
                 }   
@@ -25,5 +25,5 @@ function  mostrarSafra(req, res) {
 
 
 module.exports = {
-    mostrarSafra
+    mostrarBiblioteca
 };

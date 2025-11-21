@@ -300,3 +300,15 @@ body{
     font-weight: 100;
     text-align: center;
 }
+
+.biblioteca .container{
+    display: flex;
+
+}
+
+.biblioteca .container img{
+    width: 100px;
+    height: 100px;
+    margin: 15px;
+    cursor: pointer;
+}
