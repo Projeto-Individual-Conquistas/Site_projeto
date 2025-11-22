@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
+    <title>Play's Path | Dashboards</title>
 
     
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
+    <link rel="stylesheet" href="./css/dashboards.css">
+    <link rel="stylesheet" href="./css/estilo.css" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -21,7 +21,7 @@
 
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
@@ -32,29 +32,24 @@
 
     <div class="janela">
         <div class="header-left">
-            <h1>AquaTech</h1>
+            <img src="./assets/logo.png" alt="">
 
             <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                <h3>Olá, <span id="b_usuario"></span>!</h3>
             </div>
 
             <div class="btn-nav-white">
                 <a href="./cards.html">
-                    <h3>Aquários</h3>
+                    <h3>Biblioteca</h3>
                 </a>
             </div>
 
             <div class="btn-nav">
 
-                <h3>Gráficos</h3>
+                <h3>RECOMENDAÇÕES</h3>
 
             </div>
 
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
 
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
@@ -70,9 +65,11 @@
                 <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
             </div>
             <div id="graficos">
-                <canvas id="myChart"></canvas>
+                <canvas id="dashboard-genero"></canvas>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <div id="resultado">
+
+            </div>
         </div>
     </div>
 
@@ -81,25 +78,143 @@
 
 </html>
 <script>
+    b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
-  const ctx = document.getElementById('myChart');
 
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+
+ function obterDadosGrafico(id_registro) {
+
+    // alterarTitulo(id_registro)
+
+    // if (proximaAtualizacao != undefined) {
+    //   clearTimeout(proximaAtualizacao);
+    // }
+
+    fetch(`/medidas/ultimas/${id_registro}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+      
+          
+          plotarGrafico(resposta, id_registro);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+  // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+  function plotarGrafico(resposta, id_registro) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosGenero = {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
+        label: 'Aproveitamento de jogos (%)',
+        data: [],
+        fill: true,
+        borderWidth: 1 ,
+        tension: 0.3
+      }],options: {
       scales: {
         y: {
           beginAtZero: true
         }
       }
     }
-  });
+    };
+ 
+
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      var momentoGrafico = registro.momento_grafico.split(':')
+      labels.push(`${momentoGrafico[0]}:${momentoGrafico[1]}`);
+      dadosGenero.datasets[0].data.push(registro.umidade);
+
+      mudarCorDosKPI( registro.umidade)
+
+    }
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dadosUmidade.datasets)
+    console.log('----------------------------------------------')
+
+    // Criando estrutura para plotar gráfico - config
+    const configGenero = {
+      type: 'pie',
+      data: dadosGenero, // antigo "dadosUmidade""
+    };
+    // Adicionando gráfico criado em div na tela
+    let dashboarGenero = new Chart(
+      document.getElementById(`dashboard-genero`),
+      configGenero
+    );
+
+    setTimeout(() => atualizarGrafico(id_registro, dadosGenero, dashboarGenero), 2000);
+  }
+
+
+  // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+  // buscando a última medida inserida em tabela contendo as capturas, 
+
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function atualizarGrafico(id_registro, dadosGenero, dashboarGenero) {
+
+
+
+    fetch(`/medidas/tempo-real/${id_registro}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+          // obterdados(id_registro);
+          // alertar(novoRegistro, id_registro);
+          console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+          console.log(`Dados atuais do gráfico de umidade:`);
+          console.log(dadosUmidade);
+
+
+          // let avisoCaptura = document.getElementById(`avisoCaptura${id_registro}`)
+          // avisoCaptura.innerHTML = ""
+
+          var momentoGrafico = novoRegistro[0].momento_grafico.split(':')
+          momentoGrafico = `${momentoGrafico[0]}:${momentoGrafico[1]}`
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao = setTimeout(() => atualizarGrafico(id_registro, dadosGenero, dashboarGenero), 2000);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(id_registro, dados, myChart), 2000);
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
 </script>
