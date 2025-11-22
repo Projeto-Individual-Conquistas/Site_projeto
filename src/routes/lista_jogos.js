@@ -5,7 +5,7 @@ var router = express.Router();
 var lista_jogosController = require("../controllers/lista_jogosController");
 
 
-router.get("/mostrarJogos/:email/:id_usuario", function (req, res) {
+router.get("/mostrarJogos/:email/:id_cadastro", function (req, res) {
     lista_jogosController.mostrarJogos(req, res);
 })
 

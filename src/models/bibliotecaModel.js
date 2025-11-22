@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 
-function mostrarBiblioteca(email, id_usuario) {
+function mostrarBiblioteca(email, id_cadastro) {
 
     /*
     var instrucaoSql  = `SELECT idSafra, 
@@ -22,7 +22,7 @@ function mostrarBiblioteca(email, id_usuario) {
     FROM biblioteca_de_jogos AS B 
     JOIN  jogo AS J ON B.fk_jogo = J.id_jogo 
     JOIN usuario AS U ON B.fk_usuario = U.id_cadastro 
-    WHERE U.email = '${email}' AND B.fk_usuario = '${id_usuario}';` 
+    WHERE U.email = '${email}' AND B.fk_usuario = '${id_cadastro}';` 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

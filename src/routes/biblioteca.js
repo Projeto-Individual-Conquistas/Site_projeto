@@ -5,7 +5,7 @@ var router = express.Router();
 var bibliotecaController = require("../controllers/bibliotecaControler");
 
 
-router.get("/mostrarBiblioteca/:email/:id_usuario", function (req, res) {
+router.get("/mostrarBiblioteca/:email/:id_cadastro", function (req, res) {
     bibliotecaController.mostrarBiblioteca(req, res);
 })
 

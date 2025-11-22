@@ -76,9 +76,9 @@
 
 
         var email = sessionStorage.EMAIL_USUARIO
-        var id_usuario = sessionStorage.ID_USUARIO
+        var id_cadastro = sessionStorage.ID_USUARIO
 
-        fetch(`http://127.0.0.1:3333/biblioteca/mostrarBiblioteca/${email}/${id_usuario}`, {
+        fetch(`http://127.0.0.1:3333/biblioteca/mostrarBiblioteca/${email}/${id_cadastro}`, {
             method: "GET",
         }).then(function (response) {
             if (response.ok) {
@@ -90,7 +90,7 @@
 
 
             if (response.length == 0) {
-                div_jogos.innerHTML += `<h1 style="color: red;">Nenhum jogo cadastrado!</h1>`
+                div_jogos.innerHTML += `<h1 style="color: white;">Nenhum jogo cadastrado!</h1>`
             }
 
 

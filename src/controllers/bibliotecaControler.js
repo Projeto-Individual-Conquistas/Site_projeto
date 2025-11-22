@@ -4,11 +4,11 @@ var bibliotecaModel = require("../models/bibliotecaModel");
 
 function  mostrarBiblioteca(req, res) {
     var email = req.params.email;
-    var id_usuario  = req.params.id_usuario;
+    var id_cadastro  = req.params.id_cadastro;
 
-    if (id_usuario != undefined && email != undefined) {
+    if (id_cadastro != undefined && email != undefined) {
 
-        bibliotecaModel.mostrarBiblioteca(email, id_usuario)
+        bibliotecaModel.mostrarBiblioteca(email, id_cadastro)
             .then(
                 function (resultadoMostrarBiblioteca) {
                     console.log(`\nResultados encontrados: ${resultadoMostrarBiblioteca}`);

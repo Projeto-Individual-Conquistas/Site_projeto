@@ -1,13 +1,13 @@
 var empresaModel = require("../models/empresaModel");
 
-function buscarPorCnpj(req, res) {
+/*function buscarPorCnpj(req, res) {
   var cnpj = req.query.cnpj;
 
   empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
-
+*/
 function listar(req, res) {
   empresaModel.listar().then((resultado) => {
     res.status(200).json(resultado);
@@ -15,13 +15,13 @@ function listar(req, res) {
 }
 
 function buscarPorId(req, res) {
-  var id = req.params.id;
+  var id_cadastro = req.params.id;
 
-  empresaModel.buscarPorId(id).then((resultado) => {
+  empresaModel.buscarPorId(id_cadastro).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
-
+/*
 function cadastrar(req, res) {
   var cnpj = req.body.cnpj;
   var razaoSocial = req.body.razaoSocial;
@@ -38,10 +38,16 @@ function cadastrar(req, res) {
     }
   });
 }
-
+*/
+module.exports = {
+  buscarPorId,
+  listar,
+};
+/*
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
   cadastrar,
   listar,
 };
+*/
