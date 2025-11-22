@@ -307,10 +307,53 @@ body{
     justify-content: start;
 
 }
-
+.jogo_cadastrado{
+    flex-direction: row;
+    display: flex;
+}
 .biblioteca .container img{
     width: 100px;
     height: 100px;
     margin: 15px;
     cursor: pointer;
+}
+
+.biblioteca {
+  color: white;
+  text-align: center;
+  flex-direction: column;
+}
+
+.biblioteca .container a{
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.class_jogos{
+display: flex;
+align-self: flex-start;
+flex-direction: column;
+}
+
+.class_jogos h2{
+  margin: 15px 0px 0px 10px;
+}
+
+.class_jogos .estatistica{
+    flex-direction: row;
+    text-align: start;
+    align-items: flex-start;
+}
+
+.class_jogos img{
+    width: 100px;
+    height: 100px;
+    margin: 15px;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+.class_jogos .estatistica p{
+    margin: 10px 0px 0px 10px;
+    font-size: 18px;
+    font-weight: 700;
 }

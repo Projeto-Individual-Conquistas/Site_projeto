@@ -16,41 +16,47 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body>
+<body onload="Listar_biblioteca()">
 
     <!--header inicio-->
 
     </header>
 
-        <div class="header-left dash-header">
-            <img src="./assets/logo.png" alt="">
+    <div class="header-left dash-header">
+        <img src="./assets/logo.png" alt="">
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario"></span>!</h3>
-            </div>
-
-            <div class="btn-nav">
-                <h3>BIBLIOTECA</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./dashboard.html">
-                    <h3>RECOMENDAÇÕES</h3>
-                </a>
-            </div>
-
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
+        <div class="hello">
+            <h3>Olá, <span id="b_usuario"></span>!</h3>
         </div>
+
+        <div class="btn-nav">
+            <h3>BIBLIOTECA</h3>
+        </div>
+
+        <div class="btn-nav-white">
+            <a href="./dashboard.html">
+                <h3>RECOMENDAÇÕES</h3>
+            </a>
+        </div>
+
+
+        <div class="btn-logout" onclick="limparSessao()">
+            <a href="./index.html">
+                <h3>Sair</h3>
+            </a>
+        </div>
+
+    </div>
 
     <!-- simulador inicio -->
     <div class="biblioteca">
         <h2><span id="usuario"></span></h2>
         <h2>Biblioteca</h2>
-        <div id="jogos"></div>
+        
+        <div id="div_jogos" class="class_jogos">
+
+        </div>
+
         <div class="container" id="add_jogos">
             <a href="./index.html">
                 <img src="./assets/add_img.png" alt="adicionar jogo">
@@ -65,4 +71,62 @@
 
 <script>
     b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+
+    function Listar_biblioteca() {
+
+
+        var email = sessionStorage.EMAIL_USUARIO
+        var id_usuario = sessionStorage.ID_USUARIO
+
+        fetch(`http://127.0.0.1:3333/biblioteca/mostrarBiblioteca/${email}/${id_usuario}`, {
+            method: "GET",
+        }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log("Erro na api")
+            }
+        }).then(function (response) {
+
+
+            if (response.length == 0) {
+                div_jogos.innerHTML += `<h1 style="color: red;">Nenhum jogo cadastrado!</h1>`
+            }
+
+
+
+            console.log("o codigo deu certo", response.id_bliblioteca)
+
+            var id_bliblioteca = 0
+            var capa = ''
+            var nome = ''
+            var horas_jogo = 0
+            var conquistas = 0
+
+            console.log(response)
+
+            for (i = 0; i < response.length; i++) {
+
+                id_bliblioteca = response[i].id_biblioteca
+                capa = response[i].capa
+                nome = response[i].nome
+                horas_jogo = response[i].horas_jogo
+                conquistas = response[i].conquistas
+
+                div_jogos.innerHTML += `
+                <div class="jogo_cadastrado">
+                    <img src="./assets/capas_jogo/${capa}.png" alt="Capa do jogo">
+                    <div class="estatistica">
+                    <h2>${nome}</h2>
+                    <p>Horas Jogadas: ${horas_jogo}</p>
+                    <p>Conquistas: ${conquistas}</p>
+                    </div>
+                </div>            
+                    `
+
+            }
+
+        })
+
+    }
 </script>

@@ -313,17 +313,6 @@ input {
 
 /* SIMULADOR */
 
-.biblioteca {
-  color: white;
-  text-align: center;
-}
-
-.biblioteca .container {
-  flex-direction: column;
-  height: var(--tamanho-simulador);
-}
-
-/* ALERTA */
 
 #alerta {
   position: absolute;
