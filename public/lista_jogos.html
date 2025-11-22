@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Play's Path | biblioteca</title>
+
+    <script src="./js/sessao.js"></script>
+    <link rel="stylesheet" href="./css/dashboards.css">
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./assets/logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body onload="lista_jogos()">
+
+    <!--header inicio-->
+
+    </header>
+
+    <div class="header-left dash-header">
+        <img src="./assets/logo.png" alt="">
+
+        <div class="hello">
+            <h3>Olá, <span id="b_usuario"></span>!</h3>
+        </div>
+
+        <div class="btn-nav-white">
+            <a href="./biblioteca.html">
+                <h3>BIBLIOTECA</h3>
+            </a>
+        </div>
+
+        <div class="btn-nav-white">
+            <a href="./dashboard.html">
+                <h3>RECOMENDAÇÕES</h3>
+            </a>
+        </div>
+
+
+        <div class="btn-logout" onclick="limparSessao()">
+            <a href="./index.html">
+                <h3>Sair</h3>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- simulador inicio -->
+    <div class="biblioteca">
+        <h2><span id="usuario"></span></h2>
+        <h2>CADASTRE SEUS JOGOS FAVORITOS</h2>
+        
+        <div id="div_jogos" class="class_jogos">
+
+        </div>
+
+        <div class="container" id="add_jogos">
+            <a href="./index.html">
+                <img src="./assets/add_img.png" alt="adicionar jogo">
+            </a>
+        </div>
+    </div>
+
+
+</body>
