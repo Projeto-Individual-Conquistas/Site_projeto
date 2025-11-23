@@ -151,6 +151,41 @@
             }
 
         })
-
     }
+        function cadastrar_jogo(){
+            var horasVar = input_horas.value;
+            var conquistasVar = input_conquistas.value;
+            var id_jogoVar = sessionStorage.ID_JOGO
+            var id_cadastroVar = sessionStorage.ID_USUARIO
+
+            if (horasVar == "" || conquistasVar == "") {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            fetch(`http://127.0.0.1:3333/biblioteca/cadastrarBiblioteca/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id_jogoServer: id_jogoVar,
+                    id_cadastroServer: id_cadastroVar,
+                    horas_jogoServer: horasVar,
+                    conquistasServer: conquistasVar
+                }),
+            }).then(function (response) {
+                if (response.ok) {
+                    alert("Jogo cadastrado com sucesso!")
+                    
+                    setTimeout(() => {
+                     window.location = "biblioteca.html";
+                    }, "2000");
+
+                } else {
+                    alert("Erro ao cadastrar jogo!");
+                }
+            });
+        }
+    
 </script>

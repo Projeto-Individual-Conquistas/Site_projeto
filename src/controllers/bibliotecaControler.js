@@ -23,7 +23,31 @@ function  mostrarBiblioteca(req, res) {
             )
     } } 
 
+function  cadastrarBiblioteca (req, res) {
+    var id_jogo = req.body.id_jogoServer;
+    var id_cadastro  = req.body.id_cadastroServer; 
+    var horas_jogo = req.body.horas_jogoServer;
+    var conquistas = req.body.conquistasServer;
+
+        bibliotecaModel.cadastrarBiblioteca(id_jogo, id_cadastro, horas_jogo, conquistas)
+            .then(
+                function (resultadocadastrarBiblioteca) {
+                    console.log("ACESSEI O CADASTRAR BIBLIOTECA CONTROLLER");
+                    console.log(`\nResultados encontrados: ${resultadocadastrarBiblioteca}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadocadastrarBiblioteca)}`); 
+                        res.json(resultadocadastrarBiblioteca)
+                }   
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    } 
+
 
 module.exports = {
-    mostrarBiblioteca
+    mostrarBiblioteca,
+    cadastrarBiblioteca
 };

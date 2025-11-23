@@ -9,5 +9,8 @@ router.get("/mostrarBiblioteca/:email/:id_cadastro", function (req, res) {
     bibliotecaController.mostrarBiblioteca(req, res);
 })
 
+router.post("/cadastrarBiblioteca", function (req, res) {
+    bibliotecaController.cadastrarBiblioteca(req, res);
+});
 
 module.exports = router;

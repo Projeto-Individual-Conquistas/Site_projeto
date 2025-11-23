@@ -29,8 +29,17 @@ function mostrarBiblioteca(email, id_cadastro) {
 
 }
 
+function cadastrarBiblioteca(id_jogo, id_cadastro, horas_jogo, conquistas) {
 
+    var instrucaoSql = `INSERT INTO 
+    biblioteca_de_jogos (fk_usuario, fk_jogo, horas_jogo, conquistas, versao) 
+    VALUES (${id_cadastro}, ${id_jogo}, ${horas_jogo}, ${conquistas}, 1.0);`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
-    mostrarBiblioteca
+    mostrarBiblioteca,
+    cadastrarBiblioteca
 };
