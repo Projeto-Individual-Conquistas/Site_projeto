@@ -56,12 +56,20 @@
         <h2><span id="usuario"></span></h2>
         <h2>CADASTRE SEUS JOGOS FAVORITOS</h2>
         
-        <div id="div_jogos" class="class_lista">
-            
+        <div id="div_jogos" class="class_jogo_cadastro">
             
             
         </div>
-        
+
+        <div class="registros">
+
+            Quantas horas de jogo você tem?
+            <input type="number" id="input_horas" placeholder="95 horas">
+            Quantas conquistas você possui?
+            <input type="number" id="input_conquistas" placeholder="min - 0 / max - 55">
+            
+            <button onclick="cadastrar_jogo()">REGISTRAR</button>
+        </div>
     </div>
     
     
@@ -106,22 +114,37 @@
             var id_jogo = 0
             var capa = ''
             var nome = ''
-            
+            var genero = ''
+            var classificacao = ''
+            var publicadora = ''
+            var desenvolvedora = ''
+            var peso = 0
+
             console.log(response)
             
             for (i = 0; i < response.length; i++) {
                 id_jogo = response[i].id_jogo
                 capa = response[i].capa
                 nome = response[i].nome
+                genero = response[i].genero
+                classificacao = response[i].classificacao
+                publicadora = response[i].publicadora
+                desenvolvedora = response[i].desenvolvedora
+                peso = response[i].peso
                 
                 
                 console.log("id do jogo:", id_jogo)
 
-                div_jogos.innerHTML += `
-                <div class="jogo_listado" onclick="jogo_id(${id_jogo})">
+                div_jogos.innerHTML = `
+                <div class="class_jogo_cadastro">
                     <img src="./assets/capas_jogo/${capa}.png" alt="Capa do jogo">
-                    <div class="estatistica">
+                    <div class="info">
                     <h2>${nome}</h2>
+                    <p>Gênero: ${genero}</p>
+                    <p>Classificação: ${classificacao}</p>
+                    <p>Peso: ${peso} - GB</p>
+                    <p>Publicadora: ${publicadora}</p>
+                    <p>Desenvolvedora: ${desenvolvedora}</p>
                     </div>
                 </div>             
                 `

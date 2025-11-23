@@ -380,3 +380,67 @@ flex-direction: column;
     justify-self: center;
     border: 2px solid white;
 }
+.class_jogo_cadastro{
+    flex-direction: row;
+    display: flex;
+    text-align: left;
+}
+.class_jogo_cadastro h2{
+    font-size: 30px;
+    margin: 15px 0px 0px 0px;
+    font-weight: 800;
+}
+
+.class_jogo_cadastro p{
+    font-size: 22px;
+    margin: 20px 0px 0px 0px;
+    font-weight: 700;
+}
+.class_jogo_cadastro img{
+    width: 300px;
+    height: 300px;
+    margin: 15px;
+    border-radius: 10px;
+    justify-self: flex-start;
+    border: 2px solid white;
+}
+.class_jogo_cadastro .info{
+    flex-direction: column;
+    margin: 0px;
+    
+}
+.registros{
+margin-top: 15px;
+display: flex;
+text-align: left;
+flex-direction: column;
+font-size: 20px;
+font-weight: 500;
+width: 300px;
+}
+.registros input{
+    width: 300px;
+    color: white;
+    background-color: black;
+    border: white solid 2px;
+    margin-bottom: 20px;
+    justify-items: start;
+}
+.registros input::placeholder{
+    color: white;
+}
+.registros input[type=number]::-webkit-inner-spin-button{
+    appearance: none;
+}
+.registros button{
+    width: 150px;
+    height: 40px;
+    background-color: #32b9cd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    align-self: center;
+}   
