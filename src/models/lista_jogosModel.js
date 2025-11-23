@@ -1,10 +1,9 @@
 var database = require("../database/config")
 
 
-function mostrarJogos(email, id_cadastro) {
+function mostrarJogos() {
 
    var instrucaoSql  = `SELECT
-  SELECT
     id_jogo,
     nome,
     capa

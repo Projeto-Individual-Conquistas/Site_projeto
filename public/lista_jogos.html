@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="lista_jogos()">
+<body onload="Listar_jogos()">
 
     <!--header inicio-->
 
@@ -68,3 +68,60 @@
 
 
 </body>
+
+<script>
+    b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+
+    function Listar_jogos() {
+
+
+        var email = sessionStorage.EMAIL_USUARIO
+        var id_cadastro = sessionStorage.ID_USUARIO
+        
+        fetch(`http://127.0.0.1:3333/lista_jogos/mostrarJogos`, {
+            method: "GET",
+        }).then(function (response) {
+            console.log("entrou no for")  
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log("Erro na api")
+            }
+        }).then(function (response) {
+
+
+            if (response.length == 0) {
+                div_jogos.innerHTML += `<h1 style="color: white;">Nenhum jogo cadastrado!</h1>`
+            }
+
+
+
+            console.log("o codigo deu certo", response.id_jogo)
+
+            var id_jogo = 0
+            var capa = ''
+            var nome = ''
+
+
+            console.log(response)
+
+            for (i = 0; i < response.length; i++) {
+                id_jogo = response[i].id_jogo
+                capa = response[i].capa
+                nome = response[i].nome
+
+                div_jogos.innerHTML += `
+                <div class="jogo_cadastrado">
+                    <img src="./assets/capas_jogo/${capa}.png" alt="Capa do jogo">
+                    <div class="estatistica">
+                    <h2>${nome}</h2>
+                    </div>
+                </div>            
+                    `
+
+            }
+
+        })
+
+    }
+</script>
