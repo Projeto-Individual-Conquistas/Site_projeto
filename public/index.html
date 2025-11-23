@@ -85,7 +85,7 @@
                 <input type="text" id="input_email" placeholder="@gmail...">
                 <h3>Mensagem</h3>
                 <input type="text" id="input_mensagem" placeholder="Mensagem">
-                <button>Enviar Mensagem</button>
+                <button onclick="botao_enviar()">Enviar Mensagem</button>
             </div>
             
             <div class="suporte">
@@ -126,3 +126,27 @@
 </body>
 
 </html>
+
+<script>
+
+function botao_enviar() {
+    var emailVar = input_email.value;
+    var mensagemVar = input_mensagem.value;
+
+    if (emailVar == "" || mensagemVar == "") {
+        alert("Por favor, preencha todos os campos antes de enviar sua mensagem.");
+    } else {
+        fetch("http://127.0.0.1:3333/mensagem/botao_enviar",{
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    mensagemServer: mensagemVar
+                })
+            });
+        alert("Obrigado por entrar em contato! Responderemos em breve.");
+    }
+}
+</script>
