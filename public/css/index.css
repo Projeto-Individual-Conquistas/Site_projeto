@@ -357,3 +357,26 @@ flex-direction: column;
     font-size: 18px;
     font-weight: 700;
 }
+
+.jogo_listado{
+    flex-direction: row;
+    display: block;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+.class_lista{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    min-width: 600px;
+}
+
+.class_lista img{
+    width: 100px;
+    height: 100px;
+    margin: 15px;
+    border-radius: 10px;
+    justify-self: center;
+    border: 2px solid white;
+}

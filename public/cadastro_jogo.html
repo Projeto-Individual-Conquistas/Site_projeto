@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body onload="Listar_jogos()">
+<body>
 
     <!--header inicio-->
 
@@ -69,20 +69,22 @@
 
 <script>
     b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+    selecionar_jogos();
     
-    function jogo_id(id_jogo) {
-    sessionStorage.ID_JOGO = id_jogo;
-    window.location = "./cadastro_jogo.html";
-    }
-    
-    function Listar_jogos() {
+    function selecionar_jogos() {
         
         
         var email = sessionStorage.EMAIL_USUARIO
         var id_cadastro = sessionStorage.ID_USUARIO
         
-        fetch(`http://127.0.0.1:3333/lista_jogos/mostrarJogos`, {
-            method: "GET",
+        fetch(`http://127.0.0.1:3333/lista_jogos/selecionarJogo`, {
+            method: "POST",
+            headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        jogoServer: sessionStorage.ID_JOGO
+      }),
         }).then(function (response) {
             console.log("entrou no for")  
             if (response.ok) {

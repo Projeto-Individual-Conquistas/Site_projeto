@@ -9,5 +9,8 @@ router.get("/mostrarJogos", function (req, res) {
     lista_jogosController.mostrarJogos(req, res);
 })
 
+router.post("/selecionarJogo", function (req, res) {
+    lista_jogosController.selecionarJogo(req, res);
+});
 
 module.exports = router;

@@ -18,7 +18,26 @@ function  mostrarJogos(req, res) {
             )
  } 
 
+ function selecionarJogo(req, res) {
+    var id_jogo = req.body.jogoServer;
+        lista_jogosModel.selecionarJogo(id_jogo)
+        .then( 
+            function (resultadoselecionarJogo) {
+                    console.log("ACESSEI O SELECIONAR JOGO CONTROLLER");
+                    console.log(`\nResultados encontrados: ${resultadoselecionarJogo}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoselecionarJogo)}`);
+                        res.json(resultadoselecionarJogo)
+                }   
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+ } 
 
 module.exports = {
-    mostrarJogos
+    mostrarJogos,
+    selecionarJogo
 };
