@@ -39,7 +39,25 @@ function cadastrarBiblioteca(id_jogo, id_cadastro, horas_jogo, conquistas) {
     return database.executar(instrucaoSql);
 }
 
+function exibirHistorico(id_cadastro) {
+
+    var instrucaoSql = `SELECT
+    J.capa,
+    J.nome,
+    H.data_historico
+FROM historico AS H JOIN biblioteca_de_jogos AS B 
+    ON H.fk_biblioteca_historico = B.id_biblioteca 
+    AND H.fk_usuario_historico = B.fk_usuario
+    AND H.fk_jogo_historico = B.fk_jogo 
+JOIN jogo AS J ON H.fk_jogo_historico = J.id_jogo 
+WHERE H.fk_usuario_historico = ${id_cadastro};`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     mostrarBiblioteca,
-    cadastrarBiblioteca
+    cadastrarBiblioteca,
+    exibirHistorico
 };

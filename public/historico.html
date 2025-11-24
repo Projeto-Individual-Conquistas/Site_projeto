@@ -67,4 +67,58 @@
 </body>
 </html>
 
-<script></script>
+<script>
+      b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+
+    function Listar_biblioteca() {
+
+        var id_cadastro = sessionStorage.ID_USUARIO
+
+        fetch(`http://127.0.0.1:3333/biblioteca/exibirHistorico/${id_cadastro}`, {
+            method: "GET",
+        }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log("Erro na api")
+            }
+        }).then(function (response) {
+
+
+            if (response.length == 0) {
+                div_jogos.innerHTML += `<h1 style="color: white;">Você ainda não recebeu nenhuma recomendação</h1>`
+            }
+
+
+
+            console.log("o codigo deu certo", response.id_cadastro)
+
+            var capa = ''
+            var nome = ''
+            var data_historico = ''
+
+            console.log(response)
+
+            for (i = 0; i < response.length; i++) {
+
+                capa = response[i].capa
+                nome = response[i].nome
+                data_historico = response[i].data_historico
+
+                div_jogos.innerHTML += `
+                <div class="jogo_cadastrado">
+                    <img src="./assets/capas_jogo/${capa}.png" alt="Capa do jogo">
+                    <div class="estatistica">
+                    <h2>${nome}</h2>
+                    <p>Data da recomendação: ${data_historico}</p>
+                    </div>
+                </div>            
+                    `
+
+            }
+
+        })
+
+    }
+
+</script>

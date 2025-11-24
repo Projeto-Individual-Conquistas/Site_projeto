@@ -13,4 +13,7 @@ router.post("/cadastrarBiblioteca", function (req, res) {
     bibliotecaController.cadastrarBiblioteca(req, res);
 });
 
+router.get("/exibirHistorico/:id_cadastro", function (req, res) {
+    bibliotecaController.exibirHistorico(req, res);
+});
 module.exports = router;

@@ -1,4 +1,3 @@
-var usuarioModel = require("../models/usuarioModel");
 var bibliotecaModel = require("../models/bibliotecaModel");
 
 
@@ -46,8 +45,20 @@ function  cadastrarBiblioteca (req, res) {
             );
     } 
 
+function exibirHistorico(req, res) {
+    var id_cadastro = req.params.id_cadastro;
 
+    bibliotecaModel.exibirHistorico(id_cadastro)
+        .then(
+            function (resultadoHistorico) {
+                console.log(`\nResultados encontrados: ${resultadoHistorico}`);
+                console.log(`Resultados: ${JSON.stringify(resultadoHistorico)}`);   
+                res.json(resultadoHistorico);
+            }   
+        )
+    }
 module.exports = {
     mostrarBiblioteca,
-    cadastrarBiblioteca
+    cadastrarBiblioteca,
+    exibirHistorico
 };
