@@ -35,6 +35,10 @@
             </a>
         </div>
 
+        <div class="btn-nav">
+                <h3>LISTA DE JOGOS</h3>
+        </div>
+
         <div class="btn-nav-white">
             <a href="./dashboard.html">
                 <h3>RECOMENDAÇÕES</h3>
@@ -132,6 +136,12 @@
                 desenvolvedora = response[i].desenvolvedora
                 peso = response[i].peso
                 
+                if(genero == 'acao'){
+                    genero = 'ação'
+                    console.log("este é um jogo de ação")
+                }else if (genero == 'estrategia'){
+                    genero = 'estratégia'
+                }
                 
                 console.log("id do jogo:", id_jogo)
 

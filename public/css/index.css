@@ -367,15 +367,22 @@ flex-direction: column;
 
 .class_lista{
     display: flex;
-    align-items: center;
-    justify-items: center;
+    align-items: flex-start;
+    justify-content: space-evenly;
     min-width: 600px;
+    padding-right: 30px;
+    line-break: auto;
+    flex-wrap: wrap;
 }
-
+.class_lista h2{
+    width: 120px;
+    margin: 0px;
+    text-align: center;
+}
 .class_lista img{
     width: 100px;
     height: 100px;
-    margin: 15px;
+    margin: 10px;
     border-radius: 10px;
     justify-self: center;
     border: 2px solid white;
