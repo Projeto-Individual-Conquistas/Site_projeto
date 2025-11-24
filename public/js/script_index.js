@@ -17,22 +17,5 @@ function carrocel() {
   num_carrocel++
 }
 
-function go() {
-  num_carrocel++
-  if (num_carrocel >= carrocel_index.length) {
-    num_carrocel = 0;
-  }
-  carrocel();
-}
-
-function back() {
- 
-  imagem_meio.innerHTML = `${carrocel_index[num_carrocel--]}`
-  if (num_carrocel < 0) {
-     imagem_meio.innerHTML = `${carrocel_index[carrocel_max]}`
-  }
-  carrocel();
-}
-
-setInterval(go, 5000);
+setInterval(carrocel, 5000);
 
