@@ -90,7 +90,7 @@
 
     window.onload = exibirGraficoDoUsuario();
 
-  function obterDadosGrafico(id_registro) {
+  function exibirGraficoDoUsuario(id_biblioteca) {
 
     // alterarTitulo(id_registro)
 
@@ -98,7 +98,7 @@
     //   clearTimeout(proximaAtualizacao);
     // }
 
-    fetch(`/medidas/ultimas/${id_registro}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/medidas/ultimas/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -106,7 +106,7 @@
 
 
 
-          plotarGrafico(resposta, id_registro);
+          plotarGrafico(resposta, id_biblioteca);
 
         });
       } else {

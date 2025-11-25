@@ -6,7 +6,7 @@ function buscarUltimasMedidas(id_biblioteca, limite_linhas) {
     aproveitamento,
     data_historico AS momento_grafico
     FROM historico
-    WHERE fk_usuario_historico = ${id_biblioteca}
+    WHERE fk_biblioteca_historico = ${id_biblioteca}
     ORDER BY id_historico DESC LIMIT ${limite_linhas}`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -19,7 +19,7 @@ function buscarMedidasEmTempoReal(id_biblioteca) {
     aproveitamento,
     data_historico AS momento_grafico
     FROM historico
-    WHERE fk_usuario_historico = ${id_biblioteca}
+    WHERE fk_biblioteca_historico = ${id_biblioteca}
     ORDER BY id DESC LIMIT 1`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
