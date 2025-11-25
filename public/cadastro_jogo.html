@@ -188,14 +188,19 @@
                 if (response.ok) {
                     alert("Jogo cadastrado com sucesso!")
                     
-                    setTimeout(() => {
+                    
                      window.location = "biblioteca.html";
-                    }, "2000");
+
+                     // toda vez que cadastrar um novo jogo, o grafico é atualizado
+                     inserir_dashboard();
 
                 } else {
                     alert("Erro ao cadastrar jogo!");
                 }
             });
         }
-    
+
+        function inserir_dashboard(){
+            
+        }
 </script>

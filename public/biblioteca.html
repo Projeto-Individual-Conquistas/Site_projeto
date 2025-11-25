@@ -79,11 +79,11 @@
     b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
     function Listar_biblioteca() {
-
-
+        
+        
         var email = sessionStorage.EMAIL_USUARIO
         var id_cadastro = sessionStorage.ID_USUARIO
-
+        
         fetch(`http://127.0.0.1:3333/biblioteca/mostrarBiblioteca/${email}/${id_cadastro}`, {
             method: "GET",
         }).then(function (response) {
@@ -93,22 +93,21 @@
                 console.log("Erro na api")
             }
         }).then(function (response) {
-
-
+            
+            
             if (response.length == 0) {
                 div_jogos.innerHTML += `<h1 style="color: white;">Nenhum jogo cadastrado!</h1>`
             }
-
-
-
+            
+            
+            
             console.log("o codigo deu certo", response.id_bliblioteca)
-
             var id_bliblioteca = 0
             var capa = ''
             var nome = ''
             var horas_jogo = 0
             var conquistas = 0
-
+            
             console.log(response)
 
             for (i = 0; i < response.length; i++) {
@@ -118,20 +117,20 @@
                 nome = response[i].nome
                 horas_jogo = response[i].horas_jogo
                 conquistas = response[i].conquistas
-
+                
                 div_jogos.innerHTML += `
                 <div class="jogo_cadastrado">
                     <img src="./assets/capas_jogo/${capa}.png" alt="Capa do jogo">
                     <div class="estatistica">
-                    <h2>${nome}</h2>
-                    <p>Horas Jogadas: ${horas_jogo}</p>
-                    <p>Conquistas: ${conquistas}</p>
-                    </div>
+                        <h2>${nome}</h2>
+                        <p>Horas Jogadas: ${horas_jogo}</p>
+                        <p>Conquistas: ${conquistas}</p>
+                        </div>
                 </div>            
-                    `
+                `
 
             }
-
+            sessionStorage.ID_BIBLIOTECA = id_bliblioteca
         })
 
     }
