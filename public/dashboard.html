@@ -64,17 +64,13 @@
     </div>
 
     <div class="dash">
-      <div id="alerta">
-      </div>
-
-      <div class="btns-dash" id="btnAquario">
         <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-      </div>
+
       <div id="graficos">
         <canvas id="grafico"></canvas>
       </div>
       <div id="resultado">
-
+        
       </div>
     </div>
   </div>
@@ -173,64 +169,11 @@
       configGrafico
     );
 
-    setTimeout(() => atualizarGrafico(id_registro, dadosAproveitamento, dashboardAproveitamento), 2000);
+
+
+    
   }
 
 
-  function atualizarGrafico(id_registro, dadosUmidade, dashboardUmidade) {
-
-
-
-    fetch(`/medidas/tempo-real/${id_registro}`, { cache: 'no-store' }).then(function (response) {
-      if (response.ok) {
-        response.json().then(function (novoRegistro) {
-
-          // obterdados(id_registro);
-          // alertar(novoRegistro, id_registro);
-          console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-
-          console.log(`Dados atuais do gráfico de umidade:`);
-          console.log(dadosUmidade);
-
-
-          // let avisoCaptura = document.getElementById(`avisoCaptura${id_registro}`)
-          // avisoCaptura.innerHTML = ""
-
-          var momentoGrafico = novoRegistro[0].momento_grafico.split(':')
-          momentoGrafico = `${momentoGrafico[0]}:${momentoGrafico[1]}`
-          if (momentoGrafico == dadosTemperatura.labels[dadosTemperatura.labels.length - 1]) {
-            console.log("---------------------------------------------------------------")
-            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-            // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-            console.log("Horário do novo dado capturado:")
-            console.log(novoRegistro[0].momento_grafico)
-            console.log("Horário do último dado capturado:")
-            console.log(dadosTemperatura.labels[dadosTemperatura.labels.length - 1])
-            console.log("---------------------------------------------------------------")
-          } else {
-            // tirando e colocando valores no gráfico
-
-            dadosUmidade.labels.shift(); // apagar o primeiro
-            dadosUmidade.labels.push(momentoGrafico); // incluir um novo momento
-
-            dadosUmidade.datasets[0].data.shift();  // apagar o primeiro de umidade
-            dadosUmidade.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-            dashboardUmidade.update()
-            mudarCorDosKPI( novoRegistro[0].umidade) // -> Atualizar essa função para ser AtualizarKpi, e ela deverá atualizar as informações do kpi de acordo com os ultimos registros. by Gomes, Luis
-          }
-
-          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-          proximaAtualizacao = setTimeout(() => atualizarGrafico(id_registro, dadosUmidade, dashboardUmidade, dadosTemperatura, dashboardTemperatura), 2000);
-        });
-      } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGrafico(id_registro, dados, myChart), 2000);
-      }
-    })
-      .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-      });
-  }
+ 
 </script>

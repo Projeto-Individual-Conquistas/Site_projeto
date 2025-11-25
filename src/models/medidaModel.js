@@ -4,7 +4,7 @@ function buscarUltimasMedidas(id_biblioteca, limite_linhas) {
 
     var instrucaoSql = `SELECT
     aproveitamento,
-    data_historico AS momento_grafico
+    DATE_FORMAT(data_historico, '%d/%m/%Y %H:%i:%s') AS momento_grafico
     FROM historico
     WHERE fk_biblioteca_historico = ${id_biblioteca}
     ORDER BY id_historico DESC LIMIT ${limite_linhas}`;
@@ -17,7 +17,7 @@ function buscarMedidasEmTempoReal(id_biblioteca) {
 
     var instrucaoSql = `SELECT
     aproveitamento,
-    data_historico AS momento_grafico
+    DATE_FORMAT(data_historico, '%d/%m/%Y %H:%i:%s') AS momento_grafico
     FROM historico
     WHERE fk_biblioteca_historico = ${id_biblioteca}
     ORDER BY id DESC LIMIT 1`;
