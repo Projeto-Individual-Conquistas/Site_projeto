@@ -1,9 +1,9 @@
 var bibliotecaModel = require("../models/bibliotecaModel");
 
 
-function  mostrarBiblioteca(req, res) {
+function mostrarBiblioteca(req, res) {
     var email = req.params.email;
-    var id_cadastro  = req.params.id_cadastro;
+    var id_cadastro = req.params.id_cadastro;
 
     if (id_cadastro != undefined && email != undefined) {
 
@@ -13,37 +13,72 @@ function  mostrarBiblioteca(req, res) {
                     console.log(`\nResultados encontrados: ${resultadoMostrarBiblioteca}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoMostrarBiblioteca)}`); // transforma JSON em String
 
-                    
 
-                        res.json(resultadoMostrarBiblioteca)
-                        
 
-                }   
+                    res.json(resultadoMostrarBiblioteca)
+
+
+                }
             )
-    } } 
+    }
+}
 
-function  cadastrarBiblioteca (req, res) {
+function cadastrarBiblioteca(req, res) {
     var id_jogo = req.body.id_jogoServer;
-    var id_cadastro  = req.body.id_cadastroServer; 
+    var id_cadastro = req.body.id_cadastroServer;
     var horas_jogo = req.body.horas_jogoServer;
     var conquistas = req.body.conquistasServer;
 
-        bibliotecaModel.cadastrarBiblioteca(id_jogo, id_cadastro, horas_jogo, conquistas)
-            .then(
-                function (resultadocadastrarBiblioteca) {
-                    console.log("ACESSEI O CADASTRAR BIBLIOTECA CONTROLLER");
-                    console.log(`\nResultados encontrados: ${resultadocadastrarBiblioteca}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadocadastrarBiblioteca)}`); 
-                        res.json(resultadocadastrarBiblioteca)
-                }   
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    } 
+    bibliotecaModel.cadastrarBiblioteca(id_jogo, id_cadastro, horas_jogo, conquistas)
+        .then(
+            function (resultadocadastrarBiblioteca) {
+                console.log("ACESSEI O CADASTRAR BIBLIOTECA CONTROLLER");
+                console.log(`\nResultados encontrados: ${resultadocadastrarBiblioteca}`);
+                console.log(`Resultados: ${JSON.stringify(resultadocadastrarBiblioteca)}`);
+                res.json(resultadocadastrarBiblioteca)
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function mediaConquistas(req, res) {
+    var id_cadastro = req.params.id_cadastro;
+
+    bibliotecaModel.mediaConquistas(id_cadastro)
+        .then(
+            function (resultadoMedia) {
+                console.log(`\nResultados encontrados: ${resultadoMedia}`);
+                console.log(`Resultados: ${JSON.stringify(resultadoMedia)}`);
+                res.json(resultadoMedia);
+            }
+        )
+}
+function inserirHistorico(req, res) {
+    var id_cadastro = req.body.id_cadastroServer;
+    var id_jogo = req.body.id_jogoServer;
+    var aproveitamento = req.body.AproveitamentoServer
+
+    bibliotecaModel.inserirHistorico(id_cadastro, id_jogo, aproveitamento)
+        .then(
+            function (resultadocadastrarBiblioteca) {
+                console.log("ACESSEI O CADASTRAR BIBLIOTECA CONTROLLER");
+                console.log(`\nResultados encontrados: ${resultadocadastrarBiblioteca}`);
+                console.log(`Resultados: ${JSON.stringify(resultadocadastrarBiblioteca)}`);
+                res.json(resultadocadastrarBiblioteca)
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 function exibirHistorico(req, res) {
     var id_cadastro = req.params.id_cadastro;
@@ -52,13 +87,15 @@ function exibirHistorico(req, res) {
         .then(
             function (resultadoHistorico) {
                 console.log(`\nResultados encontrados: ${resultadoHistorico}`);
-                console.log(`Resultados: ${JSON.stringify(resultadoHistorico)}`);   
+                console.log(`Resultados: ${JSON.stringify(resultadoHistorico)}`);
                 res.json(resultadoHistorico);
-            }   
+            }
         )
-    }
+}
 module.exports = {
     mostrarBiblioteca,
     cadastrarBiblioteca,
+    mediaConquistas,
+    inserirHistorico,
     exibirHistorico
 };

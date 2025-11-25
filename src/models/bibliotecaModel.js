@@ -39,6 +39,20 @@ function cadastrarBiblioteca(id_jogo, id_cadastro, horas_jogo, conquistas) {
     return database.executar(instrucaoSql);
 }
 
+function mediaConquistas(id_cadastro) {
+    var instrucaoSql = `SELECT AVG(conquistas) AS media_conquistas FROM biblioteca_de_jogos WHERE fk_usuario = ${id_cadastro};`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function inserirHistorico(id_cadastro,id_jogo,aproveitamento){
+    var instrucaoSql = `INSERT INTO
+    historico (fk_biblioteca_historico, fk_usuario_historico, fk_jogo_historico, aproveitamento)
+    VALUES (${id_cadastro},${id_cadastro},${id_jogo},${aproveitamento})`
+
+     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 function exibirHistorico(id_cadastro) {
 
     var instrucaoSql = `SELECT
@@ -59,5 +73,7 @@ WHERE H.fk_usuario_historico = ${id_cadastro};`
 module.exports = {
     mostrarBiblioteca,
     cadastrarBiblioteca,
+    mediaConquistas,
+    inserirHistorico,
     exibirHistorico
 };

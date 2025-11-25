@@ -36,7 +36,7 @@
         </div>
 
         <div class="btn-nav">
-                <h3>LISTA DE JOGOS</h3>
+            <h3>LISTA DE JOGOS</h3>
         </div>
 
         <div class="btn-nav-white">
@@ -51,7 +51,7 @@
                 <h3>Sair</h3>
             </a>
         </div>
-        
+
 
     </div>
 
@@ -59,10 +59,10 @@
     <div class="biblioteca">
         <h2><span id="usuario"></span></h2>
         <h2>CADASTRE SEUS JOGOS FAVORITOS</h2>
-        
+
         <div id="div_jogos" class="class_jogo_cadastro">
-            
-            
+
+
         </div>
 
         <div class="registros">
@@ -71,50 +71,44 @@
             <input type="number" id="input_horas" placeholder="95 horas">
             Quantas conquistas você possui?
             <input type="number" id="input_conquistas" placeholder="min - 0 / max - 55">
-            
+
             <button onclick="cadastrar_jogo()">REGISTRAR</button>
         </div>
     </div>
-    
-    
+
+
 </body>
 
 <script>
     b_usuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
     selecionar_jogos();
-    
+
     function selecionar_jogos() {
-        
-        
         var email = sessionStorage.EMAIL_USUARIO
         var id_cadastro = sessionStorage.ID_USUARIO
-        
+
         fetch(`http://127.0.0.1:3333/lista_jogos/selecionarJogo`, {
             method: "POST",
             headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        jogoServer: sessionStorage.ID_JOGO
-      }),
-        }).then(function (response) {
-            console.log("entrou no for")  
-            if (response.ok) {
-                return response.json();
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                jogoServer: sessionStorage.ID_JOGO
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
             } else {
                 console.log("Erro na api")
             }
-        }).then(function (response) {
-            
-            
-            if (response.length == 0) {
-                div_jogos.innerHTML += `<h1 style="color: white;">Nenhum jogo cadastrado!</h1>`
+        }).then(function (resposta) {
+            if (!resposta || resposta.length == 0) {
+                div_jogos.innerHTML = `<h1 style="color: white;">Nenhum jogo cadastrado!</h1>`
+                return;
             }
 
+            console.log("o codigo deu certo", resposta.id_jogo)
 
-            
-            console.log("o codigo deu certo", response.id_jogo)
-            
             var id_jogo = 0
             var capa = ''
             var nome = ''
@@ -124,83 +118,128 @@
             var desenvolvedora = ''
             var peso = 0
 
-            console.log(response)
-            
-            for (i = 0; i < response.length; i++) {
-                id_jogo = response[i].id_jogo
-                capa = response[i].capa
-                nome = response[i].nome
-                genero = response[i].genero
-                classificacao = response[i].classificacao
-                publicadora = response[i].publicadora
-                desenvolvedora = response[i].desenvolvedora
-                peso = response[i].peso
-                
-                if(genero == 'acao'){
+            console.log(resposta)
+
+            // Se quiser mostrar apenas o último jogo ou todos, adapte aqui.
+            // Atualmente substitui o conteúdo com o último item do loop.
+            for (var i = 0; i < resposta.length; i++) {
+                id_jogo = resposta[i].id_jogo
+                capa = resposta[i].capa
+                nome = resposta[i].nome
+                genero = resposta[i].genero
+                classificacao = resposta[i].classificacao
+                publicadora = resposta[i].publicadora
+                desenvolvedora = resposta[i].desenvolvedora
+                peso = resposta[i].peso
+
+                if (genero == 'acao') {
                     genero = 'ação'
                     console.log("este é um jogo de ação")
-                }else if (genero == 'estrategia'){
+                } else if (genero == 'estrategia') {
                     genero = 'estratégia'
                 }
-                
+
                 console.log("id do jogo:", id_jogo)
 
                 div_jogos.innerHTML = `
                 <div class="class_jogo_cadastro">
                     <img src="./assets/capas_jogo/${capa}.png" alt="Capa do jogo">
                     <div class="info">
-                    <h2>${nome}</h2>
-                    <p>Gênero: ${genero}</p>
-                    <p>Classificação: ${classificacao}</p>
-                    <p>Peso: ${peso} - GB</p>
-                    <p>Publicadora: ${publicadora}</p>
-                    <p>Desenvolvedora: ${desenvolvedora}</p>
+                        <h2>${nome}</h2>
+                        <p>Gênero: ${genero}</p>
+                        <p>Classificação: ${classificacao}</p>
+                        <p>Peso: ${peso} - GB</p>
+                        <p>Publicadora: ${publicadora}</p>
+                        <p>Desenvolvedora: ${desenvolvedora}</p>
                     </div>
                 </div>             
                 `
             }
-
-        })
+        }).catch(function(erro){
+            console.log("Erro ao selecionar jogos:", erro);
+        });
     }
-        function cadastrar_jogo(){
-            var horasVar = input_horas.value;
-            var conquistasVar = input_conquistas.value;
-            var id_jogoVar = sessionStorage.ID_JOGO
-            var id_cadastroVar = sessionStorage.ID_USUARIO
 
-            if (horasVar == "" || conquistasVar == "") {
-                alert("Preencha todos os campos!");
-                return;
+    function cadastrar_jogo() {
+        var horasVar = input_horas.value;
+        var conquistasVar = input_conquistas.value;
+        var id_jogoVar = sessionStorage.ID_JOGO
+        var id_cadastroVar = sessionStorage.ID_USUARIO
+
+        if (horasVar == "" || conquistasVar == "") {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        fetch(`http://127.0.0.1:3333/biblioteca/cadastrarBiblioteca/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id_jogoServer: id_jogoVar,
+                id_cadastroServer: id_cadastroVar,
+                horas_jogoServer: horasVar,
+                conquistasServer: conquistasVar
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Jogo cadastrado com sucesso!")
+                // toda vez que cadastrar um novo jogo, o grafico é atualizado
+                inserir_dashboard();
+            } else {
+                alert("Erro ao cadastrar jogo!");
             }
+        }).catch(function(erro){
+            console.log("Erro ao cadastrar jogo:", erro);
+            alert("Erro ao cadastrar jogo!");
+        });
+    }
 
-            fetch(`http://127.0.0.1:3333/biblioteca/cadastrarBiblioteca/`, {
+    function inserir_dashboard() {
+        var AproveitamentoVar = 0
+
+        fetch(`http://127.0.0.1:3333/biblioteca/mediaConquistas/${sessionStorage.ID_USUARIO}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            } else {
+                console.log("Erro ao obter média de conquistas");
+            }
+        })
+        .then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            
+            AproveitamentoVar = (resposta[0].media_conquistas / 55) * 100
+            console.log("Média de conquistas:", AproveitamentoVar)
+            
+            return fetch(`http://127.0.0.1:3333/biblioteca/inserirHistorico`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    id_jogoServer: id_jogoVar,
-                    id_cadastroServer: id_cadastroVar,
-                    horas_jogoServer: horasVar,
-                    conquistasServer: conquistasVar
+                    id_jogoServer: sessionStorage.ID_JOGO,
+                    id_cadastroServer: sessionStorage.ID_USUARIO,
+                    AproveitamentoServer: AproveitamentoVar
                 }),
-            }).then(function (response) {
-                if (response.ok) {
-                    alert("Jogo cadastrado com sucesso!")
-                    
-                    
-                     window.location = "biblioteca.html";
-
-                     // toda vez que cadastrar um novo jogo, o grafico é atualizado
-                     inserir_dashboard();
-
-                } else {
-                    alert("Erro ao cadastrar jogo!");
-                }
             });
-        }
-
-        function inserir_dashboard(){
-            
-        }
+        })
+        .then(function (resposta) {
+            if (resposta && resposta.ok) {
+                console.log("Está indo para o historico")
+                window.location = "biblioteca.html";
+            } else {
+                console.log("Não está indo para o historico");
+            }
+        })
+        .catch(function (erro) {
+            console.log("Erro em inserir_dashboard:", erro);
+        });
+    }
 </script>
