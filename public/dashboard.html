@@ -151,11 +151,7 @@
       var registro = resposta[i];
       var momentoGrafico = registro.momento_grafico.split(':')
       labels.push(`${momentoGrafico[0]}:${momentoGrafico[1]}`);
-      dadosUmidade.datasets[0].data.push(registro.umidade);
-      dadosTemperatura.datasets[1].data.push(registro.temperatura);
-
-      mudarCorDosKPI(registro.temperatura, registro.umidade)
-
+      dadosAproveitamento.datasets[0].data.push(registro.aproveitamento);
     }
 
     console.log('----------------------------------------------')
@@ -163,22 +159,21 @@
     console.log('Labels:')
     console.log(labels)
     console.log('Dados:')
-    console.log(dadosTemperatura.datasets)
-    console.log(dadosUmidade.datasets)
+    console.log(dadosAproveitamento.datasets)
     console.log('----------------------------------------------')
 
     // Criando estrutura para plotar gráfico - config
     const configGrafico = {
       type: 'line',
-      data: dadosUmidade,
+      data: dadosAproveitamento,
     };
 
-    let dashboardUmidade = new Chart(
+    let dashboardAproveitamento = new Chart(
       document.getElementById(`grafico`),
       configGrafico
     );
 
-    setTimeout(() => atualizarGrafico(id_registro, dadosUmidade, dashboardUmidade), 2000);
+    setTimeout(() => atualizarGrafico(id_registro, dadosAproveitamento, dashboardAproveitamento), 2000);
   }
 
 
