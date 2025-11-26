@@ -64,15 +64,35 @@
     </div>
 
     <div class="dash">
-        <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+      <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
 
       <div id="graficos">
         <canvas id="grafico"></canvas>
       </div>
-      <div id="resultado">
-        
+
+      <div class="kpis">
+
+        <div class="fav-genero">
+          <h1>Genero com
+            mais aproveitamento:</h1>
+          <div id="resultado_1">RPG</div>
+        </div>
+
+        <div class="fav-genero">
+          <h1>Media geral do tempo desse genero:</h1>
+          <div id="resultado_2">400</div>
+        </div>
+
       </div>
+
+      <div class="sugestao">
+        <h1>Sua sugestão de jogos</h1>
+        <div id=""></div>
+      </div>
+
     </div>
+
+  </div>
   </div>
 
 
@@ -80,11 +100,11 @@
 
 </html>
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    let proximaAtualizacao;
+  let proximaAtualizacao;
 
-    window.onload = exibirGraficoDoUsuario();
+  window.onload = exibirGraficoDoUsuario();
 
   function exibirGraficoDoUsuario(id_biblioteca) {
 
@@ -171,9 +191,33 @@
 
 
 
-    
-  }
+    fetch(`/medidas/buscarGenero/${sessionStorage.ID_USUARIO}`,{
+      method: "GET",
+      }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log("Erro na api")
+            }
+        }).then(function (response){
+
+          if (response.length == 0){
+            resultado_1.innerHTML = `Ainda não cadastrou nenhum jogo`;
+            resultado_2.innerHTML = `Ainda não cadastrou nenhum jogo`
+          }else{
+            console.log("o codigo deu certo", response.genero)
 
 
- 
+            resultado_1.innerHTML = `${response[0].genero}`
+            resultado_2.innerHTML = `${response[0].conquistas}`
+          }
+
+
+          
+           
+        })
+    }
+
+
+
 </script>
