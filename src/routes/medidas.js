@@ -14,5 +14,7 @@ router.get("/tempo-real/:id_biblioteca", function (req, res) {
 router.get("/buscarGenero/:id_biblioteca", function (req, res){
     medidaController.buscarGenero(req, res);
 })
-
+router.get("/sugestao/:id_biblioteca", function(req, res){
+    medidaController.sugestao(req, res);
+})
 module.exports = router;

@@ -41,9 +41,33 @@ function buscarGenero(id_biblioteca){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+function sugestao(id_biblioteca){
+    var instrucaoSql = `
+    SELECT
+    J.nome AS Jogo_Recomendado,
+    J.genero,
+    J.capa
+FROM jogo AS J
+WHERE NOT EXISTS (
+        SELECT 1
+        FROM biblioteca_de_jogos AS B
+        WHERE B.fk_jogo = J.id_jogo
+          AND B.fk_usuario = ${id_biblioteca}
+    )AND J.genero = (SELECT J_interno.genero FROM biblioteca_de_jogos AS B_interno
+        JOIN jogo AS J_interno ON B_interno.fk_jogo = J_interno.id_jogo
+        WHERE B_interno.fk_usuario = ${id_biblioteca}
+        GROUP BY J_interno.genero
+        ORDER BY AVG(B_interno.conquistas) DESC LIMIT 1
+    )LIMIT 1;
+`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarGenero
+    buscarGenero,
+    sugestao
 }
 

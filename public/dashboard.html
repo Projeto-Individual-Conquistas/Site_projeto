@@ -86,8 +86,10 @@
       </div>
 
       <div class="sugestao">
-        <h1>Sua sugestão de jogos</h1>
-        <div id=""></div>
+        <h1>Sua sugestão de jogo</h1>
+        <div id="sugestao_dash">
+
+        </div>
       </div>
 
     </div>
@@ -107,12 +109,6 @@
   window.onload = exibirGraficoDoUsuario();
 
   function exibirGraficoDoUsuario(id_biblioteca) {
-
-    // alterarTitulo(id_registro)
-
-    // if (proximaAtualizacao != undefined) {
-    //   clearTimeout(proximaAtualizacao);
-    // }
 
     fetch(`/medidas/ultimas/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
@@ -207,14 +203,42 @@
           }else{
             console.log("o codigo deu certo", response.genero)
 
+            var genero = response[0].genero
+            if(genero == 'acao'){
+              genero = 'AÇÃO'
+            }else if(genero == 'estrategia'){
+              genero = 'ESTRATÉGIA'
+            }
 
-            resultado_1.innerHTML = `${response[0].genero}`
+            resultado_1.innerHTML = `${genero.toUpperCase()}`
             resultado_2.innerHTML = `${response[0].conquistas}`
           }
+        })
 
+        fetch(`/medidas/sugestao/${sessionStorage.ID_USUARIO}`,{
+                method: "GET",
+      }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                sugestao_dash.innerHTML = `Falha no select do banco`
+            }
+        }).then(function (response){
 
-          
-           
+        if (response.length == 0){
+            sugestao_dash.innerHTML = `Cadastre algum jogo para termos parâmetros`
+          }else{
+            console.log("o codigo deu certo", response.genero)
+            var capa = ''
+
+            
+            sugestao_dash.innerHTML = `
+          <h2>NOSSA SUGESTÃO PARA VOCÊ É:</h2>
+          <img src="./assets/capas_jogo/${response[0].capa}.png" alt="">
+          <h2>${response[0].Jogo_Recomendado}</h2>
+            `
+          }
+
         })
     }
 
