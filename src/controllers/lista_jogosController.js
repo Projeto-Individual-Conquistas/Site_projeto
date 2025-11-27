@@ -5,7 +5,6 @@ function  mostrarJogos(req, res) {
         lista_jogosModel.mostrarJogos()
         .then( 
             function (resultadomostrarJogos) {
-                    console.log("ACESSEI O LISTA_JOGOS CONTROLLER");
                     console.log(`\nResultados encontrados: ${resultadomostrarJogos}`);
                     console.log(`Resultados: ${JSON.stringify(resultadomostrarJogos)}`); 
 
@@ -23,7 +22,6 @@ function  mostrarJogos(req, res) {
         lista_jogosModel.selecionarJogo(id_jogo)
         .then( 
             function (resultadoselecionarJogo) {
-                    console.log("ACESSEI O SELECIONAR JOGO CONTROLLER");
                     console.log(`\nResultados encontrados: ${resultadoselecionarJogo}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoselecionarJogo)}`);
                         res.json(resultadoselecionarJogo)

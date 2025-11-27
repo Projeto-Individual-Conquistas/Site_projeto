@@ -6,57 +6,99 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+Create database projeto_individual;
 
-USE aquatech;
+use projeto_individual;
 
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
+CREATE TABLE `mensage_usuario`(
+`id_mensagem` INT PRIMARY KEY AUTO_INCREMENT,
+`email` VARCHAR(100) NOT NULL,
+`mensagem` VARCHAR(500) NOT NULL);
+ 
+CREATE TABLE `usuario` (
+  `id_cadastro` INT PRIMARY KEY AUTO_INCREMENT,
+  `apelido` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  `dt_cadastro` DATETIME DEFAULT CURRENT_TIMESTAMP);
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
-);
+CREATE TABLE `jogo` (
+  `id_jogo` INT PRIMARY KEY AUTO_INCREMENT,
+  `capa` VARCHAR(500) NULL,
+  `nome` VARCHAR(50) NOT NULL,
+  `genero` VARCHAR(45) NOT NULL,
+  CONSTRAINT`chk_genero` CHECK(`genero` IN('rpg','acao','esporte','estrategia','luta')),
+  `classificacao` INT NULL,
+  CONSTRAINT `chk_classificacao`
+  CHECK(`classificacao` IN('10','14','16','18')),
+  `dt_lancamento` DATE NOT NULL,
+  `publicadora` VARCHAR(100) NOT NULL,
+  `desenvolvedora` VARCHAR(100) NOT NULL,
+  `valor` DECIMAL(5,2) NULL,
+  `peso` DECIMAL(5,2) NOT NULL,
+  `online` TINYINT NULL,
+  `crossplay` TINYINT NULL);
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+CREATE TABLE `biblioteca_de_jogos` (
+  `id_biblioteca` INT AUTO_INCREMENT,
+  `fk_usuario` INT NOT NULL,
+  `fk_jogo` INT NOT NULL,
+  `conquistas` INT NULL,
+  CONSTRAINT `chk_conquistas` 
+    CHECK (`conquistas` <= 55),
+  `horas_jogo` INT NULL,
+  `dt_compra` DATE NULL,
+  `versao` CHAR(3) NULL,
+  `lista_desejos` TINYINT NULL,
+  PRIMARY KEY (`id_biblioteca`, `fk_usuario`, `fk_jogo`),
+  CONSTRAINT `fk_biblioteca_de_jogos_cadastro`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `usuario` (`id_cadastro`),
+  CONSTRAINT `fk_biblioteca_de_jogos_jogo`
+    FOREIGN KEY (`fk_jogo`)
+    REFERENCES `jogo` (`id_jogo`));
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+
+CREATE TABLE `conteudo_adicional` (
+  `id_conteudo_adicional` INT AUTO_INCREMENT,
+  `fk_jogo` INT NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
+  `dt_lancamento` DATE NOT NULL,
+  `valor` DECIMAL(5,2) NULL,
+  PRIMARY KEY (`id_conteudo_adicional`, `fk_jogo`),
+  CONSTRAINT `fk_conteudo_adicional_jogo`
+    FOREIGN KEY (`fk_jogo`)
+    REFERENCES `jogo` (`id_jogo`));
+
+CREATE TABLE `conquista` (
+  `id_conquista` INT AUTO_INCREMENT,
+  `fk_jogo` INT NOT NULL,
+  `titulo` VARCHAR(45) NOT NULL,
+  `raridade` VARCHAR(45) NOT NULL,
+  CONSTRAINT `chk_raridade` 
+  CHECK(`raridade` IN('comum','raro','muito raro','ultra raro')),
+  `descricao` VARCHAR(500) NULL,
+  `grau` VARCHAR(45) NULL,
+  CONSTRAINT `chk_grau`
+  CHECK (`grau` IN('bronze','prata','ouro','platina')),
+  PRIMARY KEY (`id_conquista`, `fk_jogo`),
+  CONSTRAINT `fk_conquista_jogo`
+    FOREIGN KEY (`fk_jogo`)
+    REFERENCES `jogo` (`id_jogo`));
+    
+    CREATE TABLE `historico` (
+  `id_historico` INT AUTO_INCREMENT,
+  `fk_biblioteca_historico` INT NOT NULL,
+  `fk_usuario_historico` INT NOT NULL,
+  `fk_jogo_historico` INT NOT NULL,
+  `aproveitamento` DECIMAL (5,2),
+  `data_historico` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_historico`, `fk_biblioteca_historico`, `fk_usuario_historico`, `fk_jogo_historico`),
+    CONSTRAINT `fk_historico_biblioteca_de_jogos`
+    FOREIGN KEY (`fk_biblioteca_historico` , `fk_usuario_historico` , `fk_jogo_historico`)
+    REFERENCES `biblioteca_de_jogos` (`id_biblioteca` , `fk_usuario` , `fk_jogo`));
+    
+    

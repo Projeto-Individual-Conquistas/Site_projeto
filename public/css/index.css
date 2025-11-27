@@ -145,8 +145,8 @@ body{
 
 
 .carrocel img{
-    width: 900px;
-    height: 500px;
+    width: 1200px;
+    height: 700px;
     border-radius: 10px;
     justify-content: center;
     background-size: cover;
@@ -165,13 +165,13 @@ body{
 .instrucoes{
     flex-direction: row;
     justify-self: center;
-    width: 60%;
+    width: 90%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 90px 0px 90px;
 }
 .instrucoes .container{
-    width: 15%;
+    width: 30%;
     flex-direction: column;
     align-self: center;
     text-align: center;
@@ -179,7 +179,7 @@ body{
 }
 .instrucoes .container p{
     color: #ffffff;
-    font-size: 18px;
+    font-size: 25px;
 }
 .instrucoes .container img{
     width: 100px;
@@ -259,7 +259,6 @@ body{
     border-radius: 4px;
     background-color: #ffffff;
     border: rgb(0, 225, 255) solid 2px;
-
 }
 .contate_nos h3{
     font-size: 15px;

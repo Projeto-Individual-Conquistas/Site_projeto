@@ -71,7 +71,7 @@
             <input type="number" id="input_horas" placeholder="95 horas">
             Quantas conquistas você possui?
             <input type="number" id="input_conquistas" placeholder="min - 0 / max - 55">
-
+            <div id="div_erro"></div>
             <button onclick="cadastrar_jogo()">REGISTRAR</button>
         </div>
     </div>
@@ -161,13 +161,17 @@
     }
 
     function cadastrar_jogo() {
+        div_erro.innerHTML = ``;
         var horasVar = input_horas.value;
         var conquistasVar = input_conquistas.value;
         var id_jogoVar = sessionStorage.ID_JOGO
         var id_cadastroVar = sessionStorage.ID_USUARIO
 
         if (horasVar == "" || conquistasVar == "") {
-            alert("Preencha todos os campos!");
+            div_erro.innerHTML = `<span><b style="color: red;">Algum campo não está preenchido.</b></span>`;
+            return;
+        }else if(conquistasVar > 55){
+            div_erro.innerHTML = `<span><b style="color: red;">Ultrapassou o máximo de conquistas permitido</b></span>`
             return;
         }
 
@@ -184,11 +188,11 @@
             }),
         }).then(function (resposta) {
             if (resposta.ok) {
-                alert("Jogo cadastrado com sucesso!")
+                div_erro.innerHTML = `<span><b style="color: #32b9cd;">Jogo cadastrado com sucesso.</b></span>`
                 // toda vez que cadastrar um novo jogo, o grafico é atualizado
                 inserir_dashboard();
             } else {
-                alert("Erro ao cadastrar jogo!");
+                div_erro.innerHTML = `<span><b style="color: red;">Você já cadastrou esse jogo</b></span>`
             }
         }).catch(function(erro){
             console.log("Erro ao cadastrar jogo:", erro);
@@ -233,7 +237,11 @@
         .then(function (resposta) {
             if (resposta && resposta.ok) {
                 console.log("Está indo para o historico")
+
+                 setTimeout(function () {
                 window.location = "biblioteca.html";
+                 }, 1000);
+
             } else {
                 console.log("Não está indo para o historico");
             }
