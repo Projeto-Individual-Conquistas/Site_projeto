@@ -331,7 +331,12 @@ body {
   display: flex;
   flex-direction: column;
 }
-
+.formulario #div_erro{
+  color: red;
+  align-self: center;
+  font-size: 20px;
+  font-weight: 500;
+}
 input {
   margin-bottom: 10px;
   border: 2px solid #32b9cd;

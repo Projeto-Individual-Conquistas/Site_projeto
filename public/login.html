@@ -55,7 +55,7 @@
                         <input id="senha_input" type="password" placeholder="******">
                     </div>
                     <button class="botao" onclick="entrar()">Entrar</button>
-
+                    <div id="div_erro"></div>
                     <a href="cadastro.html">
                         Criar uma conta
                     </a>
@@ -88,8 +88,7 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            div_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
             finalizarAguardar();
             return false;
         }
@@ -127,17 +126,17 @@
                 });
 
             } else {
-                console.log("Houve um erro ao tentar realizar o login!");
+                div_erro.innerHTML = `<span><b style="color: red;">Credenciais incorretas.</b></span>`
 
                 resposta.text().then(texto => {                /* Deixa expresso no console o erro  */
                     console.error(texto);
-                    div_mensagem_erro.innerHTML = `<span><b style="color: red;">Credenciais incorretas ou erro no servidor.</b></span>`;
+                    div_erro.innerHTML = `<span><b style="color: red;">Credenciais incorretas ou erro no servidor.</b></span>`;
                 });
             }
 
         }).catch(function (erro) {
             console.log(erro);
-            div_mensagem_erro.innerHTML = `<span><b style="color: red;">Erro de conexão. Verifique o servidor.</b></span>`;
+            div_erro.innerHTML = `<span><b style="color: red;">Erro de conexão. Verifique o servidor.</b></span>`;
         })
 
         return false;
