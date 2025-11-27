@@ -30,7 +30,7 @@ function buscarGenero(id_biblioteca){
 
     var instrucaoSql = `SELECT
     J.genero,
-    AVG(B.conquistas) AS conquistas
+    ROUND(AVG(B.conquistas), 1) AS conquistas
     FROM biblioteca_de_jogos AS B
     JOIN jogo AS J ON B.fk_jogo = J.id_jogo
     WHERE B.fk_usuario = ${id_biblioteca} 
